@@ -1,8 +1,12 @@
 require('dotenv').config();
 const liveServer = require("live-server");
  
+
+console.log(process.env.PORT);
+console.log(process.env.IP);
+
 const params = {
-    port: process.env.KEY, 
+    port: process.env.PORT, 
     host: process.env.IP,
     root: "./web",
     open: false,
