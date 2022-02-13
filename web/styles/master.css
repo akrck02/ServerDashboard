@@ -1,0 +1,94 @@
+@import url("./bubbleUI-min.css");
+
+view {
+    height: 100%;
+}
+
+h1#main-title {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+}
+
+h2#services {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+div#service-vault{
+    max-width: 50rem;
+}
+
+div#service-vault > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 20%;
+    margin: 0 1rem;
+}
+
+div#service-vault > div > div.icon {
+    width: 10rem;
+    height: 10rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    transition: opacity var(--fast);
+    cursor: pointer;
+    background: rgba(0, 0, 0, .15);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+div#service-vault > div > div.icon:hover {
+    opacity: 1;
+}
+
+div#service-vault > div > div.icon > svg {
+    fill: var(--text-color);
+    width: 4rem;
+}
+
+div#service-vault > div > div.icon > label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width : 800px) {
+    h1#main-title {
+        font-size: 3rem;
+    }
+
+    h2#services {
+        font-size: 1.2rem;
+    }
+
+    div#service-vault > div > div.icon {
+        width: 8rem;
+        height: 8rem;
+        flex-direction: row; 
+        width: 80%;
+        justify-content: space-between;
+    }
+
+    div#service-vault > div > div.icon > svg {
+        width: 4rem;
+    }
+
+    div#service-vault > div > div.icon > label {
+        font-size: 1.25rem;
+        font-weight: normal;
+        margin-top: 0;
+    }
+
+
+    
+}
