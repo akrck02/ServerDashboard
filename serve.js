@@ -8,7 +8,7 @@ console.log(process.env.IP);
 const params = {
     port: process.env.PORT, 
     host: process.env.IP,
-    root: "./web",
+    root: ".",
     open: false,
     wait: 1000, 
     logLevel: 2, 

@@ -31,7 +31,7 @@ div#service-vault > div {
     margin: 0 1rem;
 }
 
-div#service-vault > div > div.icon {
+div#service-vault > div > a.icon {
     width: 10rem;
     height: 10rem;
     margin-bottom: 1rem;
@@ -43,20 +43,21 @@ div#service-vault > div > div.icon {
     transition: opacity var(--fast);
     cursor: pointer;
     background: rgba(0, 0, 0, .15);
+    color: var(--text-color);
     padding: 2rem;
     border-radius: 1rem;
 }
 
-div#service-vault > div > div.icon:hover {
+div#service-vault > div > a.icon:hover {
     opacity: 1;
 }
 
-div#service-vault > div > div.icon > svg {
+div#service-vault > div > a.icon > svg {
     fill: var(--text-color);
     width: 4rem;
 }
 
-div#service-vault > div > div.icon > label {
+div#service-vault > div > a.icon > label {
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 1rem;
@@ -71,7 +72,7 @@ div#service-vault > div > div.icon > label {
         font-size: 1.2rem;
     }
 
-    div#service-vault > div > div.icon {
+    div#service-vault > div > a.icon {
         width: 8rem;
         height: 8rem;
         flex-direction: row; 
@@ -79,11 +80,11 @@ div#service-vault > div > div.icon > label {
         justify-content: space-between;
     }
 
-    div#service-vault > div > div.icon > svg {
+    div#service-vault > div > a.icon > svg {
         width: 4rem;
     }
 
-    div#service-vault > div > div.icon > label {
+    div#service-vault > div > a.icon > label {
         font-size: 1.25rem;
         font-weight: normal;
         margin-top: 0;

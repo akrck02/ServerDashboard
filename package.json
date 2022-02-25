@@ -1,16 +1,36 @@
 {
-  "name": "website",
+  "name": "gtd_framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "Javascript framework for easy webapp coding.",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
+    "bundle": "webpack .",
+    "bundle-w": "webpack -w",
+    "compile": "tsc ",
+    "compile-w": "tsc -w",
     "serve": "node serve.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akrck02/GTD_Framework.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "akrck02",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akrck02/GTD_Framework/issues"
+  },
+  "homepage": "https://github.com/akrck02/GTD_Framework#readme",
   "dependencies": {
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
     "dotenv": "^16.0.0",
     "live-server": "^1.2.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.1"
   }
 }
