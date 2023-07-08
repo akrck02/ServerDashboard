@@ -36,12 +36,6 @@ export const Errors : { [key : number] : Error } = {
         friendly: 'Ups, something went wrong 😓',
         description: 'The server is experimenting an unexpected error, contact the administrator for more information.'
     },
-    600: {
-        code: 600,
-        message: 'Device is not compatible',
-        friendly: 'your device is not compatible with this app 😓',
-        description: 'The device you are using is not compatible with this app, contact the administrator for more information.'
-    },
 }
 
 

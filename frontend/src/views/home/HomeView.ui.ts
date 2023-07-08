@@ -8,7 +8,6 @@ import { isSmallDevice } from "../../lib/gtd/web/responsivetools.js";
 import { setClasses, setEvents, setStyles, UIComponent } from "../../lib/gtd/web/uicomponent.js";
 import { ViewUI } from "../../lib/gtdf/views/ViewUI.js";
 import HomeCore from "./HomeView.core.js";
-import HomeViewMobile from "./HomeView.mobile.ui.js";
 
 export default class HomeView extends ViewUI {
 
@@ -22,140 +21,138 @@ export default class HomeView extends ViewUI {
         super({
             type: "view",
             id: HomeView.ID,
-            classes: ["box-column","box-center"],
+            classes: ["box-column","box-x-center"],
+            styles: {
+                "padding": "0rem 4rem",
+            }
         });
     }
 
     public show(params : string[], container : UIComponent): void {
-
-        if(isSmallDevice()){
-            new HomeViewMobile().show(params,container);
-            return;
-        }
         
-        const lang = StringTools.toNormalCase(getLanguageName(Config.getLanguage()));
-        const select = new Select(HomeCore.getLanguages(),HomeCore.setLanguage,lang);
-        setStyles(select.element,{
-            position: "absolute",
-            right: "2rem",
-            top: "1rem"
-        })
-
-        select.appendTo(this);
-
-        const logo = new UIComponent({
-            type : "img",
-            id: HomeView.LOGO_ID,
-            attributes : {
-                src: Config.PATHS.ICONS + "logo.svg",
-                alt: "GTD Framework logo"
-            },
-        })
-
         const title = new UIComponent({
-            type : "h1",
-            text :App.getBundle().home.WELCOME_MESSAGE,
+            type: "h1",
+            text : "Your server dashboard",
+            styles: {
+                "font-size": "1.25rem",
+                "margin-top": "2rem",
+            }
         })
 
-        const text = new UIComponent({
-            type : "p",
-            id: HomeView.DESCRIPTION_ID,
-            text : App.getBundle().home.WELCOME_DESCRIPTION,
-        })
-
-        const startMenu = this.createStartMenu();
-
-        logo.appendTo(this);
-        title.appendTo(this);
-        text.appendTo(this);
-        startMenu.appendTo(this);
-
+        title.appendTo(this);    
+        this.drawServices()
         this.appendTo(container);
     }
 
+    public drawServices() : void {
 
-    /**
-     * Create the start menu component 
-     * @returns The menu created.
-     */
-    private createStartMenu() : UIComponent {
+        for (const key in HomeCore.getServices()) {
+            const categoryName = new UIComponent({
+                type: "h2",
+                text : key,
+                styles: {
+                    "font-size": "1rem",
+                    "margin-top": "4rem",
+                    "margin-bottom": "1rem",
+                    "opacity": "0.75",
+                }
+            })
+    
+            const categoryBox = new UIComponent({
+                type: "div",
+                classes: ["box-row"],
+                styles: {
+                    "width": "100%",
+                }
+            })
+    
 
-        const menu = new  UIComponent({
-            type: "div",
-            id: HomeView.START_MENU_ID,
-            classes: ["box-row","box-center","box-warp"],
-        })
-        
-        const helpBox = this.createInfoBox("terminal",
-            App.getBundle().home.TERMINAL, 
-            App.getBundle().home.TERMINAL_DESCRIPTION
-        );
 
-        const configBox = this.createInfoBox("folder",
-            App.getBundle().home.FILES,
-            App.getBundle().home.FILES_DESCRIPTION
-        );
+            const categoryservices = HomeCore.getServices()[key];
+            
+            categoryservices.forEach(service => {
+                const button = this.newButton(service.name, service.icon, service.url, service.icon_type).appendTo(categoryBox);
+                button.appendTo(categoryBox);
+            });
+    
+            categoryName.appendTo(this);
+            categoryBox.appendTo(this);
+        }
 
-        const contributeBox = this.createInfoBox("image",
-            App.getBundle().home.PHOTOS,
-            App.getBundle().home.PHOTOS_DESCRIPTION,
-            HomeCore.CONTRIBUTE_URL,
-            true
-        );
 
-        helpBox.appendTo(menu);
-        configBox.appendTo(menu);
-        contributeBox.appendTo(menu);
+ 
 
-        return menu;
     }
 
 
-    public createInfoBox(icon : string, title : string, message : string, url : string  = undefined, newPage : boolean = false) : UIComponent {
 
-        const infoBox = new UIComponent({
-            classes: [HomeView.INFO_BOX_CLASS, "box-column", "box-center","text-center"],
-        });
+    public newButton(text : string, icon : string, url: string, iconType: string) : UIComponent {
 
-        const infoBoxIcon = getMaterialIcon(icon, {
-            size : "5rem",
-            fill: "#555"
+        const button = new UIComponent({
+            type: "button",
+            classes: ["button","button-large","button-icon"],
+            styles: {
+                "margin": "0.5rem",
+                "width": "10rem",
+                "height": "8rem",  
+                "background-color": "rgba(0,0,0,0.25)",
+                "box-shadow": "none",
+                "border": ".20rem solid rgba(255,255,255,0.25)",
+                "border-radius": "0.55rem",
+            }
         })
 
-        infoBoxIcon.appendTo(infoBox);
 
-        const infoBoxTitle = new UIComponent({
-            type : "h2",
-            text : title
-        })
+        switch (iconType) {
+            case "local":
+                const iconComponent = getMaterialIcon(icon, {
+                    fill: "white",
+                    size: "3rem"
+                })
 
-        infoBoxTitle.appendTo(infoBox);
+                iconComponent.appendTo(button);
+                break;
+            default:
+                const imageComponent = new UIComponent({
+                    type: "img",
+                    attributes: {
+                        src: Config.PATHS.IMAGES + icon
+                    },
+                    styles: {
+                        "width": "3rem",
+                        "height": "3rem",
+                        "margin": "auto",
+                        "display": "block",
+                        "object-fit": "cover",
+                        "border-radius": "10rem"
+                    }
+                })
 
-        const infoBoxDescription = new UIComponent({
-            type : "p",
-            text : message,
-            classes: ["description"],
-        });
-        infoBoxDescription.appendTo(infoBox)
-
-        // if url is defined set action listener
-        if(url){
-
-            // Set "clickable" style and behaviour
-            setClasses(infoBox.element,["clickable"]);
-
-            // Setting event
-            setEvents(infoBox.element,{
-                click : (e : Event) => {
-                    e.preventDefault()
-                    e.stopPropagation();
-
-                    window.open(url,newPage? "blank" : "");
-                }
-            })
+                imageComponent.appendTo(button);
+                break;
         }
 
-        return infoBox;
+       
+
+        const textComponent = new UIComponent({
+            type: "span",
+            text: text,
+            styles: {
+                "font-size": "1rem",
+                "margin-top": "0.5rem",
+                "color": "white",
+                "text-align": "center",
+                "display": "block"
+            }
+        })
+
+        textComponent.appendTo(button);
+
+        button.element.addEventListener("click", () => {
+            window.open(url);
+        })
+
+        return button;
     }
 
 

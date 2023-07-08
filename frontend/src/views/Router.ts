@@ -1,6 +1,7 @@
 import { Config } from "../config/Config.js";
 import { InitializeError } from "../errors/InitializeError.js";
 import { UIComponent } from "../lib/gtd/web/uicomponent.js";
+import EditorView from "./editor/EditorView.ui.js";
 import ErrorView from "./error/ErrorView.ui.js";
 import HomeView from "./home/HomeView.ui.js";
 
@@ -43,6 +44,9 @@ export default class Router {
                 case "":
                 case "home":
                     new HomeView().show(params.splice(1), this.container);    
+                    break;
+                case "editor":
+                    new EditorView().show(params.splice(1), this.container);    
                     break;
                 case "lang":
                     Config.setLanguage(params.splice(1)[0]);

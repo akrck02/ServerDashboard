@@ -35,4 +35,35 @@ export default class HomeCore extends ViewCore {
         Utils.redirect(Config.VIEWS.HOME,[],true);
     } 
 
+
+    public static SERVICES = {
+        "System management" : [
+            {
+                name: "Monitor",
+                icon: "monitoring",
+                url: "http://nas.local:3000",
+                icon_type: "local"
+            },
+            {
+                name: "Containers",
+                icon: "docker.svg",
+                url: "http://nas.local:9000",
+                icon_type: "external"
+            },
+        ],
+        "Apps" : [
+            {
+                name: "Valhalla",
+                icon: "Valhalla.svg",
+                url: "http://nas.local:8000",
+                icon_type: "external"
+            },
+        ],
+    }
+
+    public static getServices() : any {
+        return HomeCore.SERVICES;
+    }
+
+
 }

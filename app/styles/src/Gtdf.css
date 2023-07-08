@@ -4,8 +4,12 @@
 
 :root {
     --accent-color : #007ACC;
+    --background : #2e2e2e ;
+    --text-color: #fff;
+
 }
 
 .accent-hover:hover{
     color: var(--accent-color);
+    
 }

@@ -20,7 +20,7 @@ export class Config {
 
     //global runtime configurations
     public static BASE = {
-        APP_NAME: "NasDash",
+        APP_NAME: "Gtdf-App",
         APP_VERSION: "v.x.x",
         HOST: "127.0.0.1",
         PORT: 80,

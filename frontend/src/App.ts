@@ -31,9 +31,6 @@ export default class App {
         this.notification = new NotificationUI();
         document.body.appendChild(this.notification.element);
         this.setNoficationSystem();
-
-        document.title = Config.BASE.APP_NAME;
-        
         console.log("App loaded!");
     }
 

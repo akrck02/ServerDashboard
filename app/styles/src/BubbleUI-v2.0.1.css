@@ -336,6 +336,7 @@ input[type=tel].error:focus,
 input[type=number].error:focus,
 input[type=search].error:focus,
 input[type=date].error:focus,
+select:focus,
 textarea.error:focus {
 outline: 2px solid transparent;
 }
@@ -357,6 +358,7 @@ input[type=tel]:focus,
 input[type=number]:focus,
 input[type=search]:focus,
 input[type=date]:focus,
+select:focus,
 textarea:focus {
 transition: .5s;
 outline: 2px solid var(--accent-color);

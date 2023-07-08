@@ -1,0 +1,45 @@
+#icon-panel {
+    width: 43rem;
+    min-width: 43rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: auto;
+    border-left: .5rem solid #1B1B1B;
+    padding: 1rem;
+    background-color: #1D1D1D;
+}
+
+#icon-panel h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin:  1rem 0 1rem 2rem;
+}
+
+#icon-panel #panel-content {
+    width: 100%;
+    height: 100%;
+}
+
+#icon-panel #panel-content .icon-box {
+    min-width: 10rem;
+    min-height: 10rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+#icon-panel #panel-content .icon-box:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#icon-panel #panel-content .icon-box.selected {
+    background-color: rgba(0,0,0,0.2);
+}
+
+#icon-panel #panel-content .icon-box .label {
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    margin-top: 1rem;
+}

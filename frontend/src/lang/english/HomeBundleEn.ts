@@ -1,10 +1,10 @@
 export const HomeBundleEn = {
-    WELCOME_MESSAGE : "Welcome to your NAS",
-    WELCOME_DESCRIPTION : "What do you want to manage?",
-    TERMINAL: "Terminal",
-    TERMINAL_DESCRIPTION: "Execute commands on the NAS",
-    FILES : "File search",
-    FILES_DESCRIPTION : "Manage your files",
-    PHOTOS : "Photos",
-    PHOTOS_DESCRIPTION : "Watch your photos and videos",
+    WELCOME_MESSAGE : "Welcome to GTD Framework!",
+    WELCOME_DESCRIPTION : "Start building your application now",
+    HELLO_WORLD: "Hello World",
+    HELLO_WORLD_DESCRIPTION: "Create your first app with GTDF",
+    CONFIGURATIONS : "Configurations",
+    CONFIGURATIONS_DESCRIPTION : "Learn how to set up a new project",
+    CONTRIBUTE : "Contribute",
+    CONTRIBUTE_DECRIPTION : "Help us to improve!",
 }
