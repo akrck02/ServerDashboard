@@ -1,0 +1,31 @@
+version: '3'
+services:    
+  mongodb:
+    image: mongo
+    container_name: server-dashboard-mongodb   
+    ports:
+      - "27017:27017"
+    restart: unless-stopped       
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ADMIN_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ADMIN_PASSWORD}
+    volumes:
+      - ./mongo-data:/data/db
+    networks:
+      backend:
+        ipv4_address: ${IP_MONGODB}
+  
+  app:
+    image: akrck02/server-dashboard
+    container_name: server-dashboard-app
+    restart: unless-stopped
+    ports:
+      - "80:5000"
+
+networks:
+      backend:
+        name: backend
+        ipam:
+          driver: default
+          config:
+            - subnet: ${MASK_MONGODB}
