@@ -48,6 +48,9 @@ RUN cd /app && git clone https://github.com/akrck02/ServerDashboard.git
 # install dependencies
 RUN cd /app/ServerDashboard && npm install
 
+# Compile source files
+RUN cd /app/ServerDashboard && npm run compile-client
+
 # pack styles and scripts
 RUN cd /app/ServerDashboard && npm run pack
 
@@ -55,7 +58,7 @@ RUN cd /app/ServerDashboard && npm run pack
 RUN cd /app/ServerDashboard/backend && go build -o server-dashboard-api
 
 # change to production mode
-RUN npm run prod
+RUN cd /app/ServerDashboard/backend && npm run prod
 
 # remove source files
 RUN cd /app/ServerDashboard/ && rm -rf app/indexDev.html app/styles/src frontend/src frontend/temp frontend/tsconfig.json styles.config env.js Readme.md bin .github

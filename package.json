@@ -15,8 +15,8 @@
     "pack-styles": "java -jar bin/lit-v1.0b2.jar",
     "pack-client": "rollup frontend/temp/src/Start.js --file frontend/out/App.js --format iife",
     "pack" : "npm run pack-styles & npm run pack-client",
-    "dev" : "node ./env dev",
-    "prod" : "node ./env prod",
+    "dev" : "node ./env.js dev",
+    "prod" : "node ./env.js prod",
     "serve" : "node serve.js"
   },
   "repository": {
