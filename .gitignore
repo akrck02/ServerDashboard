@@ -5,3 +5,4 @@ frontend/out
 frontend/temp
 backend/out
 docker/database/mongo-data
+docker/production/mongo-data
