@@ -17,6 +17,9 @@ RUN apt update -y --allow-unauthenticated
 # Install git
 RUN apt install -y git
 
+# Install java 
+RUN apt install -y openjdk-11-jdk
+
 # Install curl
 RUN apt install -y curl
     
@@ -42,30 +45,10 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 # Make app directiory
 RUN mkdir /app
 
-# Download code from Github
-RUN cd /app && git clone https://github.com/akrck02/ServerDashboard.git
-
-# install dependencies
-RUN cd /app/ServerDashboard && npm install
-
-# Compile source files
-RUN cd /app/ServerDashboard && npm run compile-client
-
-# pack styles and scripts
-RUN cd /app/ServerDashboard && npm run pack
-
-# build go app
-RUN cd /app/ServerDashboard/backend && go build -o server-dashboard-api
-
-# change to production mode
-RUN cd /app/ServerDashboard/backend && npm run prod
-
-# remove source files
-RUN cd /app/ServerDashboard/ && rm -rf app/indexDev.html app/styles/src frontend/src frontend/temp frontend/tsconfig.json styles.config env.js Readme.md bin .github
-
 # Volume configuration
 VOLUME ["/app", "/app"]
+WORKDIR /app
 
 # Copy start.sh script and define default command for the container
 COPY start.sh /start.sh
-CMD ["sh","/start.sh"]
+CMD ["/bin/bash","/start.sh"]
