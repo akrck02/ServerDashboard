@@ -4,7 +4,9 @@ FROM ubuntu:22.04
 # LABEL about the custom image
 LABEL maintainer="akrck02@gmail.com"
 LABEL version="0.1"
-LABEL description="This is a custom Docker Image for go compilation and execution"
+LABEL description="This is a custom Docker image for ServerDashboard application"
+
+ENV NODE_VERSION=18.0.0
 
 # Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
@@ -29,19 +31,38 @@ ENV PATH=$PATH:/usr/local/go/bin
 RUN mkdir /cache
 ENV GOPATH=/cache
 
-# Make compile directiory
-RUN mkdir /compile
+# Install nodejs and npm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+
+# Make app directiory
+RUN mkdir /app
 
 # Download code from Github
-RUN cd /compile && git clone https://github.com/akrck02/ServerDashboard
+RUN cd /app && git clone https://github.com/akrck02/ServerDashboard.git
 
-# Compile code
-RUN cd /compile/ServerDashboard/backend && go build -o /bin/compile
+# install dependencies
+RUN cd /app/ServerDashboard && npm install
+
+# pack styles and scripts
+RUN cd /app/ServerDashboard && npm run pack
+
+# build go app
+RUN cd /app/ServerDashboard/backend && go build -o server-dashboard-api
+
+# change to production mode
+RUN npm run prod
+
+# remove source files
+RUN cd /app/ServerDashboard/ && rm -rf app/indexDev.html app/styles/src frontend/src frontend/temp frontend/tsconfig.json styles.config env.js Readme.md bin .github
 
 # Volume configuration
-VOLUME ["/compile", "/cache"]
+VOLUME ["/app", "/app"]
 
 # Copy start.sh script and define default command for the container
 COPY start.sh /start.sh
-
 CMD ["sh","/start.sh"]
